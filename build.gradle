@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        versionName "1.0"
+        versionCode 1
+        minSdkVersion 19
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+
+        }
+        debug {
+            jniDebuggable true
+        }
+    }
+
+    sourceSets.main {
+        manifest.srcFile 'AndroidManifest.xml'
+        java.srcDirs = ['src']
+    }
+
+
+    task buildJar(dependsOn: ['build'], type: Jar) {
+//        appendix = "m"
+        println("========buildJar=======")
+        baseName = "jaudiotagger"
+        version = android.defaultConfig.versionName
+        extension = "jar"
+        archiveName = baseName + "." + extension;
+
+//需打包的资源所在的路径集
+        def srcClassDir = [project.buildDir.absolutePath + "/intermediates/classes/debug"];
+//初始化资源路径集
+        from srcClassDir
+    }
+
+
+}
+
+
