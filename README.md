@@ -1,4 +1,4 @@
-Code Snippet:
+    Code Snippet:
         AudioFile audioFile = null;
         MP3File mp3File;
         try {
